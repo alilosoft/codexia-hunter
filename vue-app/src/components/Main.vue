@@ -27,10 +27,16 @@
         relevantRepo: []
       }
     },
+    // only runs when dependencies changed, the results are cached
+    computed: {
+      selCount() {
+        return this.sel_repos_names.length
+      }
+    },
     methods: {
       async fetchRelevant() {
         const repos = await firebase.getRelevantRepos()
-        this.relevantRepo = Object.values(repos)
+        this.sel_repos_names = Object.values(repos)
       }
     }
   }
