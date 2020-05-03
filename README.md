@@ -19,3 +19,4 @@
 - [ ] Introduce a testing lib (jest, mocha)
 - [ ] Add interesting projects section
 - [ ] Fetch only new projects from codexia
+- [ ] Clean data/firebase.js functions
