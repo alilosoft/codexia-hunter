@@ -1,0 +1,8 @@
+<div>
+  <button @click="fetchRelevant">Relevant</button>
+  <ol>
+    <li v-for="(repo, index) in relevantRepo" :key="index">
+      {{ repo }}
+    </li>
+  </ol>
+</div>
