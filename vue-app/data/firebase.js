@@ -98,6 +98,11 @@ async function removeSubmittedFromRelevant() {
     return notSubmitted
 }
 
+async function run(action){
+    await action()
+    _db().goOffline()
+}
+
 //** TODO */
 function findRepoByName(repoName, db) {
     // https://stackoverflow.com/a/47909055/5724706
@@ -120,5 +125,6 @@ module.exports = {
     getRelevantRepos,
     saveSubmittedRepos,
     getSubmittedRepos,
-    removeSubmittedFromRelevant
+    removeSubmittedFromRelevant,
+    use: run
 }
