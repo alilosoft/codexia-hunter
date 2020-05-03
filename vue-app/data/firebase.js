@@ -98,6 +98,15 @@ async function removeSubmittedFromRelevant() {
     return notSubmitted
 }
 
+/**
+ * Use firebase db instance to run action() arg then turn db offline 
+ * @param {CallableFunction} action 
+ */
+async function run(action){
+    await action()
+    _db().goOffline()
+}
+
 //** TODO */
 function findRepoByName(repoName, db) {
     // https://stackoverflow.com/a/47909055/5724706
@@ -120,5 +129,6 @@ module.exports = {
     getRelevantRepos,
     saveSubmittedRepos,
     getSubmittedRepos,
-    removeSubmittedFromRelevant
+    removeSubmittedFromRelevant,
+    run
 }
