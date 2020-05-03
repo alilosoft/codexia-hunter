@@ -89,7 +89,7 @@ async function removeSubmittedFromRelevant() {
     const relevant = await getRelevantRepos()
     const relevantIDs = Object.keys(relevant)
     const notSubmitted = []
-    for (id of relevantIDs) {
+    for (const id of relevantIDs) {
         const repoName = relevant[id]
         const isSubmitted = submitted.includes(repoName)
         if (isSubmitted) await removeRelevantRepo(id)
