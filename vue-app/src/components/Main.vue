@@ -80,10 +80,19 @@
         this.search()
       },
 
-      showError(err) {
-        console.debug('showError():')
-        console.error(err)
-        this.$parent.showMessage()
+      showInfo(msg) {
+        console.info(msg)
+        this.$parent.showNotification(msg, this.notifType.INFO)
+      },
+
+      showWarn(msg) {
+        console.warn(msg)
+        this.$parent.showNotification(msg, this.notifType.WARN)
+      },
+
+      showError(msg) {
+        console.error(msg)
+        this.$parent.showNotification(msg, this.notifType.ERROR)
       }
     }
   }
