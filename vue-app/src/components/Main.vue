@@ -11,7 +11,7 @@
     },
     data() {
       return {
-        ghQuery: 'stars:100..10000 pushed:>2020-01-01',
+        ghQuery: 'framework stars:100..10000 pushed:>2020-01-01',
         ghSearch: new GitHubSearch(this.showError),
         page: 1,
         totalCount: 0,
@@ -19,7 +19,7 @@
         sel_repos_names: [],
         sel_topics: [],
         submitted_repos: [],
-        relevantRepo: [],
+        relevantRepos: {},
         notifType: {
           INFO: { backgroundColor: '#64dd17' },
           WARN: { backgroundColor: '#ff9800' },
@@ -32,15 +32,23 @@
     computed: {
       selCount() {
         return this.sel_repos_names.length
+      },
+      pageSize() {
+        return this.ghSearch.pageSize
+      },
+      pagesCount() {
+        return Math.ceil(this.totalCount / this.pageSize)
       }
     },
     methods: {
       async loadRelevant() {
-        const repos = await firebase.getRelevantRepos()
-        this.sel_repos_names = Object.values(repos)
+        const relevantRepos = await firebase.getRelevantRepos()
+        this.relevantRepos = relevantRepos
+        this.sel_repos_names = Object.values(relevantRepos)
+        console.debug(this.sel_repos_names)
       },
 
-      async searchGitHub() {
+      async search() {
         // clear previous result
         this.ghRepos = []
         this.totalCount = 0
@@ -61,9 +69,20 @@
           })
       },
 
+      nextPage() {
+        this.page++
+        this.search()
+      },
+
+      previousPage() {
+        this.page--
+        this.search()
+      },
+
       showError(err) {
         console.debug('showError():')
         console.error(err)
+        this.$parent.showMessage()
       }
     }
   }

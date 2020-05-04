@@ -1,17 +1,30 @@
 <div>
-  GitHub Query:
-  <input
-    type="text"
-    v-model="ghQuery"
-    @keyup.enter="searchGitHub"
-    style="width: 35%;"
-  />
-  <button @click="searchGitHub">search</button>
-  <span>{{ totalCount }}</span>
-  <button @click="loadRelevant">Relevant</button>
+  <div class="top_sticky">
+    GitHub Query:
+    <input
+      type="text"
+      v-model="ghQuery"
+      @keyup.enter="search"
+      style="width: 35%;"
+    />
+    <button v-on:click="search">Search</button>
+    Total:{{ totalCount }}/{{ ghRepos.length }} Page:
+    <input
+      type="text"
+      v-model="page"
+      @keyup.enter="search"
+      style="width: 2rem;"
+    />
+    /{{ pagesCount }}
+    <button @click="previousPage">Prev.</button>
+    <button @click="nextPage">Next</button>
+
+    <button @click="showError">Show Error</button>
+    <button @click="loadRelevant">Relevant</button>
+  </div>
   <ol>
-    <li v-for="(repo, index) in relevantRepo" :key="index">
-      {{ repo }}
+    <li v-for="(repo, index) in ghRepos" :key="index">
+      {{ repo.full_name }}
     </li>
   </ol>
 </div>
