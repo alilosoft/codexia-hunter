@@ -19,7 +19,7 @@
         ghRepos: [],
         sel_repos_names: [],
         sel_topics: [],
-        submitted_repos: [],
+        submittedReposNames: [],
         relevantRepos: {},
         notifType: {
           INFO: { backgroundColor: '#64dd17' },
@@ -48,8 +48,10 @@
       async loadData() {
         const relevantRepos = await firebase.getRelevantRepos()
         this.relevantRepos = relevantRepos
-        //this.sel_repos_names = Object.values(relevantRepos)
         console.debug(this.relevantReposNames)
+        const submitted = await firebase.getSubmittedRepos()
+        this.submittedReposNames = submitted
+        console.debug(this.submittedReposNames)
       },
 
       async search() {
