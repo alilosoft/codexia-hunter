@@ -52,16 +52,17 @@
           .page(this.page)
           .search()
           .then(results => {
-            console.debug('search results:')
+            console.debug('github search results:')
             console.debug(results)
             this.totalCount = results.total_count
             this.ghRepos = results.items
           })
-          .catch(this.showError)
+          .catch(err => {
+            this.showError('Error in searchGitHub()\n' + err.message)
+          })
       },
 
       showError(err) {
-        console.debug('Error occured:')
         console.debug(err)
       }
     }

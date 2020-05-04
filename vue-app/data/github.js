@@ -35,17 +35,22 @@ export default class GitHubSearch {
       '&order=' +
       order
 
-    console.debug('search:' + url)
-    try {
-      const res = await fetch(url, this.config)
+    console.debug('github search url:' + url)
+    return fetch(url, this.config).then(res => {
       if (res.ok) {
         return res.json()
       } else {
-        res.text().then(this.onError)
-        throw Error('Cannot fetch github: ' + url)
+        //const responseMsg = await res.text()
+        //res.text().then(this.onError)
+        throw Error(
+          'Error in GitHubSearch: \n' +
+            url +
+            '\n ' +
+            res.status +
+            ' ' +
+            res.statusText
+        )
       }
-    } catch (error) {
-      this.onError(error.message)
-    }
+    })
   }
 }
