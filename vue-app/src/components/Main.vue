@@ -3,6 +3,7 @@
 
 <script>
   import firebase from '../../data/firebase'
+  import GitHubSearch from '../../data/github'
   export default {
     name: 'Main',
     props: {
@@ -10,21 +11,21 @@
     },
     data() {
       return {
+        ghQuery: 'stars:100..10000 pushed:>2020-01-01',
+        ghSearch: new GitHubSearch(this.showError),
+        page: 1,
+        totalCount: 0,
+        ghRepos: [],
+        sel_repos_names: [],
+        sel_topics: [],
+        submitted_repos: [],
+        relevantRepo: [],
         notifType: {
           INFO: { backgroundColor: '#64dd17' },
           WARN: { backgroundColor: '#ff9800' },
           ERROR: { backgroundColor: 'crimson', color: 'white' }
         },
-        notifications: [], // {message: "", color: color}
-        query: 'stars:100..10000 pushed:>2019-05-01',
-        page: 1,
-        per_page: 25,
-        total_count: 0,
-        gh_repos: [],
-        sel_repos_names: [],
-        sel_topics: [],
-        submitted_repos: [],
-        relevantRepo: []
+        notifications: [] // {message: "", color: color}
       }
     },
     // only runs when dependencies changed, the results are cached
@@ -37,6 +38,31 @@
       async fetchRelevant() {
         const repos = await firebase.getRelevantRepos()
         this.sel_repos_names = Object.values(repos)
+      },
+
+      async searchGitHub() {
+        // clear previous result
+        this.ghRepos = []
+        this.totalCount = 0
+        this.errors = []
+        // build gh query
+        console.debug('search:' + this.ghQuery + ' page:' + this.page)
+        this.ghSearch
+          .search(this.ghQuery)
+          .page(this.page)
+          .results()
+          .then(results => {
+            console.debug('search results:')
+            console.debug(results)
+            this.totalCount = results.total_count
+            this.ghRepos = results.items
+          })
+          .catch(this.showError)
+      },
+
+      showError(err) {
+        console.debug('Error occured:')
+        console.debug(err)
       }
     }
   }

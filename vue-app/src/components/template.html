@@ -1,4 +1,13 @@
 <div>
+  GitHub Query:
+  <input
+    type="text"
+    v-model="ghQuery"
+    @keyup.enter="searchGitHub"
+    style="width: 35%;"
+  />
+  <button @click="searchGitHub">search</button>
+  <span>{{ totalCount }}</span>
   <button @click="fetchRelevant">Relevant</button>
   <ol>
     <li v-for="(repo, index) in relevantRepo" :key="index">
