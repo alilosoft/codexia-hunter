@@ -44,9 +44,8 @@
         // clear previous result
         this.ghRepos = []
         this.totalCount = 0
-        this.errors = []
         // build gh query
-        console.debug('search:' + this.ghQuery + ' page:' + this.page)
+        console.debug('github query: ' + this.ghQuery + ' page:' + this.page)
         this.ghSearch
           .useQuery(this.ghQuery)
           .page(this.page)
@@ -63,7 +62,8 @@
       },
 
       showError(err) {
-        console.debug(err)
+        console.debug('showError():')
+        console.error(err)
       }
     }
   }
