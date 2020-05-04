@@ -43,8 +43,6 @@ async function run() {
 
 //run();
 
-
-
 // test("get submitted", () => {
 //   firebase
 //     .getSubmittedRepos()
