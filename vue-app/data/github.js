@@ -12,7 +12,7 @@ export default class GitHubSearch {
     this.onError = onError
   }
 
-  search(query) {
+  useQuery(query) {
     if (query) this.query = query
     return this
   }

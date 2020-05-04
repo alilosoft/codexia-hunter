@@ -48,7 +48,7 @@
         // build gh query
         console.debug('search:' + this.ghQuery + ' page:' + this.page)
         this.ghSearch
-          .search(this.ghQuery)
+          .useQuery(this.ghQuery)
           .page(this.page)
           .results()
           .then(results => {
