@@ -18,7 +18,7 @@
     /{{ pagesCount }}
     <button @click="previousPage">prev.</button>
     <button @click="nextPage">next</button>
-    <button @click="loadRelevant">fetch data</button>
+    <button @click="loadData">firebase data</button>
   </div>
   <ol>
     <li v-for="(repo, index) in ghRepos" :key="index">

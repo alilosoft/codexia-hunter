@@ -31,6 +31,9 @@
     },
     // only runs when dependencies changed, the results are cached
     computed: {
+      relevantReposNames() {
+        return Object.values(this.relevantRepos)
+      },
       selCount() {
         return this.sel_repos_names.length
       },
@@ -42,11 +45,11 @@
       }
     },
     methods: {
-      async loadRelevant() {
+      async loadData() {
         const relevantRepos = await firebase.getRelevantRepos()
         this.relevantRepos = relevantRepos
-        this.sel_repos_names = Object.values(relevantRepos)
-        console.debug(this.sel_repos_names)
+        //this.sel_repos_names = Object.values(relevantRepos)
+        console.debug(this.relevantReposNames)
       },
 
       async search() {
