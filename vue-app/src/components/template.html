@@ -7,7 +7,7 @@
       @keyup.enter="search"
       style="width: 35%;"
     />
-    <button v-on:click="search">Search</button>
+    <button v-on:click="search">search</button>
     Total:{{ totalCount }}/{{ ghRepos.length }} Page:
     <input
       type="text"
@@ -16,11 +16,11 @@
       style="width: 2rem;"
     />
     /{{ pagesCount }}
-    <button @click="previousPage">Prev.</button>
-    <button @click="nextPage">Next</button>
+    <button @click="previousPage">prev.</button>
+    <button @click="nextPage">next</button>
 
-    <button @click="showError">Show Error</button>
-    <button @click="loadRelevant">Relevant</button>
+    <button @click="showError">test error</button>
+    <button @click="loadRelevant">fetch data</button>
   </div>
   <ol>
     <li v-for="(repo, index) in ghRepos" :key="index">

@@ -1,5 +1,6 @@
 <template src="./template.html"> </template>
-<style src="./style.css"></style>
+<style src="./style/style.css"></style>
+<style src="./style/buttons.css"></style>
 
 <script>
   import firebase from '../../data/firebase'

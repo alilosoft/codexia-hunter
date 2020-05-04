@@ -1,0 +1,25 @@
+#search-results label {
+    display: inline-block;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 4px 4px;
+    border-radius: 4px;
+}
+
+.famous {
+    background-color: rgb(189, 245, 37);
+    color: black;
+}
+
+.outdated {
+    background-color: crimson;
+    color: white;
+}
+
+.submitted {
+    background-color: coral;
+    color: white;
+}

@@ -1,0 +1,65 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+p {
+  margin-block-start: 10px;
+  margin-block-end: 10px;
+}
+
+li {
+  word-wrap: break-word;
+}
+
+.top_sticky {
+  font-size: medium;
+  background-color: cornflowerblue;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  padding: 4px;
+}
+
+.results-and-selected {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  grid-gap: 0;
+  max-width: var(--maxWidth);
+  margin: 0 auto;
+}
+
+.search_result {
+  background-color: aliceblue;
+  padding: 5px;
+}
+
+.selected_repos {
+  background-color: rgb(208, 250, 218);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 2rem;
+  transition: 1s;
+  padding: 5px;
+  overflow: auto;
+  height: 31rem;
+}
+
+.repo {
+  padding-top: 10px;
+  font-size: medium;
+}
+
+.desc {
+  font-size: medium;
+  font-style: italic;
+}
+
+div.notificationsPan {
+  position: sticky;
+  top: 2rem;
+}
+
+div.notification {
+  font-size: medium;
+  padding: 3px;
+}

@@ -1,0 +1,43 @@
+button {
+	text-transform: uppercase;
+}
+
+#search-results button {
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14px;
+	text-decoration: none;
+	padding: 4px 16px;
+	border-radius: 4px;
+}
+
+#search-results .info {
+	background-color: dodgerblue;
+	border: 1px solid blue;
+}
+
+
+.select {
+	background-color: #44c767;
+	border: 1px solid #138020;
+}
+
+.select:hover {
+	background-color: #5cbf2a;
+}
+
+.remove {
+	background-color: crimson;
+	border: 1px solid rgb(109, 14, 33);
+}
+
+.remove:hover {
+	background-color: rgb(250, 70, 106);
+}
+
+.select:active {
+	position: relative;
+	top: 1px;
+}
