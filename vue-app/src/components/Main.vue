@@ -44,15 +44,14 @@
         // clear previous result
         this.ghRepos = []
         this.totalCount = 0
-        this.errors = []
         // build gh query
-        console.debug('search:' + this.ghQuery + ' page:' + this.page)
+        console.debug('github query: ' + this.ghQuery + ' page:' + this.page)
         this.ghSearch
           .useQuery(this.ghQuery)
           .page(this.page)
           .search()
           .then(results => {
-            console.debug('search results:')
+            console.debug('github search results:')
             console.debug(results)
             this.totalCount = results.total_count
             this.ghRepos = results.items
@@ -61,8 +60,8 @@
       },
 
       showError(err) {
-        console.debug('Error occured:')
-        console.debug(err)
+        console.debug('showError():')
+        console.error(err)
       }
     }
   }
