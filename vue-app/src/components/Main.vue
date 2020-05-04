@@ -50,7 +50,7 @@
         this.ghSearch
           .useQuery(this.ghQuery)
           .page(this.page)
-          .results()
+          .search()
           .then(results => {
             console.debug('search results:')
             console.debug(results)

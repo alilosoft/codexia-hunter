@@ -22,7 +22,7 @@ export default class GitHubSearch {
     return this
   }
 
-  async results(sort = 'stars', order = 'desc') {
+  async search(sort = 'stars', order = 'desc') {
     const url =
       'https://api.github.com/search/repositories?q=' +
       this.query +
