@@ -8,7 +8,7 @@
   />
   <button @click="searchGitHub">search</button>
   <span>{{ totalCount }}</span>
-  <button @click="fetchRelevant">Relevant</button>
+  <button @click="loadRelevant">Relevant</button>
   <ol>
     <li v-for="(repo, index) in relevantRepo" :key="index">
       {{ repo }}

@@ -35,7 +35,7 @@
       }
     },
     methods: {
-      async fetchRelevant() {
+      async loadRelevant() {
         const repos = await firebase.getRelevantRepos()
         this.sel_repos_names = Object.values(repos)
       },
