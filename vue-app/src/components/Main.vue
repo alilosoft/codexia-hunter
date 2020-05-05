@@ -86,6 +86,7 @@
 
       showInfo(msg) {
         console.info(msg)
+        // TODO: anti-pattern https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Parent-Component-Instance
         this.$parent.showNotification(msg, this.notifType.INFO)
       },
 
