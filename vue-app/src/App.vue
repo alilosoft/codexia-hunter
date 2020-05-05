@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Main msg="Welcome" />
+    <Main msg="Welcome to Codexia Hunter" />
     <div v-show="notifications.length > 0" class="notificationsPan">
       <div
         v-for="(notif, index) in notifications"
