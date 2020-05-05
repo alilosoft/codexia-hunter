@@ -6,9 +6,9 @@ const today = DateTime.local().toISODate();
 
 async function submitAll() {
   const repos = await firebase.getRelevantRepos();
-  const reposAsArray = Object.values(repos);
-  console.log("relevant repos count: " + reposAsArray.length);
-  for (const repo of reposAsArray) {
+  const reposNames = Object.values(repos);
+  console.log("relevant repos count: " + reposNames.length);
+  for (const repo of reposNames) {
     await submit(repo);
   }
   console.log("saving submitted...");
