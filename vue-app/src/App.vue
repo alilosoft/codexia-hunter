@@ -43,7 +43,7 @@
         setTimeout(() => {
           const index = this.notifications.indexOf(notif)
           this.notifications.splice(index, 1)
-        }, 5000)
+        }, 10000)
       }
     }
   }
