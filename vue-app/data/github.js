@@ -6,7 +6,7 @@ export default class GitHubSearch {
     this.config = {
       headers: {
         Accept: 'application/vnd.github.mercy-preview+json',
-        Authorization: secrets.GITHUB_TOKEN
+        Authorization: 'token ' + secrets.GITHUB_TOKEN
       }
     }
     this.onError = onError
