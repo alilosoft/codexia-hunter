@@ -98,6 +98,19 @@
       showError(msg) {
         console.error(msg)
         this.$parent.showNotification(msg, this.notifType.ERROR)
+      },
+
+      // TODO: this value should be computed based on current date
+      outdated(repo) {
+        return repo.pushed_at <= '2019-04-01'
+      },
+
+      famous(repo) {
+        return repo.stargazers_count > 10000
+      },
+
+      eligible(repo) {
+        return !this.famous(repo) && !this.outdated(repo)
       }
     }
   }
