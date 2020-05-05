@@ -57,7 +57,6 @@
       async search() {
         // clear previous result
         this.ghRepos = []
-        this.totalCount = 0
         // build gh query
         console.debug('github query: ' + this.ghQuery + ' page:' + this.page)
         this.ghSearch
