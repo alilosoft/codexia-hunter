@@ -10,12 +10,17 @@ button {
 	font-size: 14px;
 	text-decoration: none;
 	padding: 4px 16px;
+	margin: 4px 4px;
 	border-radius: 4px;
 }
 
 #search-results .info {
 	background-color: dodgerblue;
 	border: 1px solid blue;
+}
+
+.info:hover {
+	background-color: rgb(8, 96, 184);
 }
 
 

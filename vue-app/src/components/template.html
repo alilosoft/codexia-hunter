@@ -18,11 +18,65 @@
     /{{ pagesCount }}
     <button @click="previousPage">prev.</button>
     <button @click="nextPage">next</button>
-    <button @click="loadData">firebase data</button>
+    <button @click="testNotif">test notif</button>
   </div>
-  <ol>
-    <li v-for="(repo, index) in ghRepos" :key="index">
-      {{ repo.full_name }}
-    </li>
-  </ol>
+  <div class="results-and-selected">
+    <div id="search-results" class="search_result">
+      <ol>
+        <li v-for="repo in ghSearchResults" :key="repo.id" class="repo">
+          <a v-bind:href="repo.html_url" target="_blank">
+            {{ repo.full_name }}</a
+          >
+          <p class="desc">{{ repo.description }}</p>
+          <div id="topics" v-show="repo.topics.length > 0">
+            <ul style="padding-inline-start: 0">
+              <li
+                v-for="(topic, index) in repo.topics"
+                :key="index"
+                style="display: inline-block; background-color:bisque; margin: 3px; padding: 4px; border-radius: 4px;"
+              >
+                {{ topic }}
+              </li>
+            </ul>
+          </div>
+          <div id="repo-info" style="padding-top: 3px;">
+            ⭐{{ repo.stargazers_count }}
+            <label v-if="famous(repo)" class="famous">famous</label>
+            <span> 📅 {{ repo.pushed_at.substring(0, 10) }} </span>
+            <label class="language">{{ repo.language }}</label>
+            <label v-show="outdated(repo)" class="outdated">outdated</label>
+            <label v-show="isSubmitted(repo)" class="submitted"
+              >submitted</label
+            >
+            <button @click="repoInfo(repo)" class="info">info</button>
+            <button
+              v-on:click="selectRepo(repo)"
+              v-show="!isSelected(repo) && !isSubmitted(repo)"
+              class="select"
+            >
+              select
+            </button>
+            <button
+              v-on:click="removeSelected(repo)"
+              v-show="isSelected(repo)"
+              class="remove"
+            >
+              remove
+            </button>
+          </div>
+        </li>
+      </ol>
+    </div>
+    <div>
+      <div class="selected_repos">
+        Relevant 😍: {{ relevantCount }}
+        <button @click="loadData()">load data</button>
+        <ol>
+          <li v-for="(repo, index) in relevantReposNames" :key="index">
+            {{ repo }}
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
 </div>

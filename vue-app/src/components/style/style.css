@@ -41,7 +41,7 @@ li {
   transition: 1s;
   padding: 5px;
   overflow: auto;
-  height: 31rem;
+  height: 550px;
 }
 
 .repo {
@@ -50,16 +50,6 @@ li {
 }
 
 .desc {
-  font-size: medium;
+  font-size: large;
   font-style: italic;
-}
-
-div.notificationsPan {
-  position: sticky;
-  top: 2rem;
-}
-
-div.notification {
-  font-size: medium;
-  padding: 3px;
 }

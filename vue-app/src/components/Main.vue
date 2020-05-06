@@ -1,10 +1,14 @@
 <template src="./template.html"> </template>
 <style src="./style/style.css"></style>
 <style src="./style/buttons.css"></style>
+<style src="./style/tags.css"></style>
 
 <script>
   import firebase from '../../data/firebase'
   import GitHubSearch from '../../data/github'
+  import secrets from '../../config/secrets'
+  import axios from 'axios'
+  import { DateTime } from 'luxon'
   export default {
     name: 'Main',
     props: {
@@ -14,28 +18,17 @@
       return {
         ghQuery: 'framework stars:100..10000 pushed:>2020-01-01',
         ghSearch: new GitHubSearch(this.showError),
-        page: 1,
+        page: 17,
         totalCount: 0,
-        ghRepos: [],
-        sel_repos_names: [],
-        sel_topics: [],
-        submittedReposNames: [],
-        relevantRepos: {},
-        notifType: {
-          INFO: { backgroundColor: '#64dd17' },
-          WARN: { backgroundColor: '#ff9800' },
-          ERROR: { backgroundColor: 'crimson', color: 'white' }
-        },
-        notifications: [] // {message: "", color: color}
+        ghSearchResults: [],
+        relevantReposNames: [],
+        submittedReposNames: []
       }
     },
     // only runs when dependencies changed, the results are cached
     computed: {
-      relevantReposNames() {
-        return Object.values(this.relevantRepos)
-      },
-      selCount() {
-        return this.sel_repos_names.length
+      relevantCount() {
+        return this.relevantReposNames.length
       },
       pageSize() {
         return this.ghSearch.pageSize
@@ -47,16 +40,16 @@
     methods: {
       async loadData() {
         const relevantRepos = await firebase.getRelevantRepos()
-        this.relevantRepos = relevantRepos
+        this.relevantReposNames = Object.values(relevantRepos)
         console.debug(this.relevantReposNames)
-        const submitted = await firebase.getSubmittedRepos()
-        this.submittedReposNames = submitted
+        const submittedRepos = await firebase.getSubmittedRepos()
+        this.submittedReposNames = submittedRepos
         console.debug(this.submittedReposNames)
       },
 
       async search() {
         // clear previous result
-        this.ghRepos = []
+        this.ghSearchResults = []
         // build gh query
         console.debug('github query: ' + this.ghQuery + ' page:' + this.page)
         this.ghSearch
@@ -67,7 +60,7 @@
             console.debug('github search results:')
             console.debug(results)
             this.totalCount = results.total_count
-            this.ghRepos = results.items
+            this.ghSearchResults = results.items
           })
           .catch(err => {
             this.showError('Error in searchGitHub()\n' + err.message)
@@ -84,25 +77,65 @@
         this.search()
       },
 
+      selectRepo(repo) {
+        const relRepo = { id: repo.id, name: repo.full_name }
+        firebase
+          .addRelevantRepo(relRepo)
+          .then(() => {
+            console.debug(relRepo.name + ' added to firebase')
+            this.relevantReposNames.push(repo.full_name)
+          })
+          .catch(err => {
+            this.showError('Error selecting ' + relRepo.name)
+            console.error(err)
+          })
+      },
+
+      removeSelected(repo) {
+        // https://stackoverflow.com/a/5767357/5724706
+        firebase
+          .removeRelevantRepo(repo.id)
+          .then(() => {
+            const index = this.relevantReposNames.indexOf(repo.full_name)
+            this.relevantReposNames.splice(index, 1)
+            console.debug(repo.name + ' removed!')
+          })
+          .catch(err => {
+            this.showError('Error removing ' + repo.name)
+            console.error(err)
+          })
+      },
+
+      isSelected(repo) {
+        return this.relevantReposNames.includes(repo.full_name)
+      },
+
+      isSubmitted(repo) {
+        return this.submittedReposNames.includes(repo.full_name)
+      },
+
       showInfo(msg) {
-        console.info(msg)
         // TODO: anti-pattern https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Parent-Component-Instance
-        this.$parent.showNotification(msg, this.notifType.INFO)
+        this.$parent.showInfo(msg)
       },
 
       showWarn(msg) {
-        console.warn(msg)
-        this.$parent.showNotification(msg, this.notifType.WARN)
+        this.$parent.showWarn(msg)
       },
 
       showError(msg) {
-        console.error(msg)
-        this.$parent.showNotification(msg, this.notifType.ERROR)
+        this.$parent.showError(msg)
       },
-
+      //TODO: delete me
+      testNotif() {
+        this.showInfo('hello')
+        this.showWarn('becarful')
+        this.showError('sorry')
+      },
       // TODO: this value should be computed based on current date
       outdated(repo) {
-        return repo.pushed_at <= '2019-04-01'
+        const yearAGo = DateTime.local().minus({ years: 1 })
+        return repo.pushed_at <= yearAGo.toISODate()
       },
 
       famous(repo) {
@@ -111,6 +144,57 @@
 
       eligible(repo) {
         return !this.famous(repo) && !this.outdated(repo)
+      },
+
+      repoInfo(repo) {
+        this.lastCommit(repo)
+        this.getLoC(repo)
+      },
+
+      lastCommit(repo) {
+        let headUrl = repo.url + '/commits/HEAD'
+        let ghConfig = {
+          headers: {
+            Authorization: 'token ' + secrets.GITHUB_TOKEN
+          }
+        }
+        axios
+          .get(headUrl, ghConfig)
+          .then(res => {
+            const lastCommitDate = res.data.commit.author.date
+            const start = DateTime.fromISO(lastCommitDate)
+            const end = DateTime.local()
+            const diff = end.diff(start, 'years')
+            const msg = repo.name + ' > LastCommit: ' + start.toISODate()
+            if (diff.years > 1) this.showWarn(msg)
+            else this.showInfo(msg)
+          })
+          .catch(err => {
+            if (err.response) {
+              this.showError(err.response.data)
+            } else {
+              this.showError('Error in lastCommit()')
+              console.error(err)
+            }
+          })
+      },
+
+      getLoC(repo) {
+        const url = 'https://api.codetabs.com/v1/loc?github=' + repo.full_name
+        axios
+          .get(url)
+          .then(res => {
+            const last = res.data.length - 1
+            const loc = res.data[last].linesOfCode
+            const msg = repo.name + ' > LoC: ' + loc
+            if (loc >= 5000) this.showInfo(msg)
+            else this.showWarn(msg)
+            //console.log(res.data);
+          })
+          .catch(err => {
+            this.showError('Error in getLoC()')
+            console.error(err)
+          })
       }
     }
   }
