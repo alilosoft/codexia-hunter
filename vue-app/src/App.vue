@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Main msg="Welcome to Codexia Hunter" />
     <div v-show="notifications.length > 0" class="notificationsPan">
       <div
+        id="notif"
         v-for="(notif, index) in notifications"
         :key="index"
         :style="notif.style"
@@ -11,6 +11,7 @@
         {{ notif.message }}
       </div>
     </div>
+    <Main msg="Welcome to Codexia Hunter" />
   </div>
 </template>
 
@@ -24,12 +25,12 @@
     },
     data() {
       return {
-        notifType: {
-          INFO: { backgroundColor: '#64dd17' },
+        notifStyle: {
+          INFO: { backgroundColor: '#b8e49d' },
           WARN: { backgroundColor: '#ff9800' },
           ERROR: { backgroundColor: 'crimson', color: 'white' }
         },
-        notifications: [] // {message: "", color: color}
+        notifications: [] // {message: "", style: css}
       }
     },
     methods: {
@@ -44,6 +45,18 @@
           const index = this.notifications.indexOf(notif)
           this.notifications.splice(index, 1)
         }, 10000)
+      },
+      showInfo(msg) {
+        console.info(msg)
+        this.showNotification(msg, this.notifStyle.INFO)
+      },
+      showWarn(msg) {
+        console.warn(msg)
+        this.showNotification(msg, this.notifStyle.WARN)
+      },
+      showError(msg) {
+        console.error(msg)
+        this.showNotification(msg, this.notifStyle.ERROR)
       }
     }
   }
@@ -51,10 +64,17 @@
 
 <style>
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    margin-top: 2px;
+  }
+  div.notificationsPan {
+    position: sticky;
+    top: 2rem;
+  }
+  div.notification {
+    font-size: medium;
+    padding: 3px;
   }
 </style>
