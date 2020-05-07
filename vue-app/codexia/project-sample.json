@@ -1,0 +1,16 @@
+{
+  "id": 1870,
+  "coordinates": "facebookincubator/ent",
+  "platform": "github",
+  "created": "2020-05-06 15:31:44 +0000",
+  "deleted": "Deleted by @yegor256 on 2020-05-06T19:35:45Z",
+  "submitter": {
+    "id": 8297,
+    "login": "codexia-hunter"
+  },
+  "badges": [{
+    "id": "1850",
+    "text": "newbie"
+  }],
+  "reviews_count": 2
+}
