@@ -16,7 +16,7 @@
     },
     data() {
       return {
-        ghQuery: 'framework stars:100..10000 pushed:>2020-01-01',
+        ghQuery: 'framework stars:100..10000 pushed:>2020-01-01 archived:false',
         ghSearch: new GitHubSearch(this.showError),
         page: 17,
         totalCount: 0,
