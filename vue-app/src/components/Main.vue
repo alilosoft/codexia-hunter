@@ -43,7 +43,7 @@
         this.relevantReposNames = Object.values(relevantRepos)
         console.debug(this.relevantReposNames)
         const submittedRepos = await firebase.getSubmittedRepos()
-        this.submittedReposNames = submittedRepos
+        this.submittedReposNames = submittedRepos.map(p => p.coordinates)
         console.debug(this.submittedReposNames)
       },
 
