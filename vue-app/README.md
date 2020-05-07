@@ -1,4 +1,6 @@
-# vue-app
+# Codexia-Hunter-Vue
+
+This is the front-end Vue.js app for Codexia-Hunter bot, used to manually filter Github projects to select only relevant once (see Codexia.org [terms](https://www.codexia.org/terms) & [focus](https://www.codexia.org/focus))
 
 ## TODO
 
