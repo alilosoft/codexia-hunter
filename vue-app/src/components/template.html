@@ -24,7 +24,11 @@
     <div id="search-results" class="search_result">
       <ol>
         <li v-for="repo in ghSearchResults" :key="repo.id" class="repo">
-          <a v-bind:href="repo.html_url" target="_blank">
+          <a
+            v-bind:href="repo.html_url"
+            target="_blank"
+            :style="repoNameStyle(repo)"
+          >
             {{ repo.full_name }}</a
           >
           <label

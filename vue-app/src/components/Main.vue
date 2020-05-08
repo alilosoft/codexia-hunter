@@ -151,6 +151,11 @@
         return codexia.notRelevant(repo.full_name)
       },
 
+      repoNameStyle(repo) {
+        if (codexia.notRelevant(repo.full_name))
+          return { textDecoration: 'line-through' }
+      },
+
       repoInfo(repo) {
         this.lastCommit(repo)
         this.getLoC(repo)
