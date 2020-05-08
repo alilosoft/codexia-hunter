@@ -1,4 +1,3 @@
-
 const bigCompany = [
   'facebook',
   'google',
@@ -18,11 +17,15 @@ const bigCompany = [
   'azure',
   'amazon',
   'airbnb',
-  'LinkedIn'
+  'linkedin'
 ]
-
+/**
+ * @param {string} repoName
+ */
 function notRelevant(repoName) {
-  return bigCompany.some(company => repoName.startsWith(company))
+  return bigCompany.some(company =>
+    repoName.toLowerCase().startsWith(company.toLowerCase())
+  )
 }
 
 module.exports = { notRelevant }
