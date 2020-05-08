@@ -1,26 +1,31 @@
 const firebase = require('../data/firebase')
 
+const bigCompany = [
+  'facebook',
+  'google',
+  'microsoft',
+  'dotnet',
+  'ibm',
+  'oracle',
+  'intel',
+  'alibaba',
+  'aws',
+  'pivotal',
+  'mozilla',
+  'uber',
+  'netflix',
+  'spring',
+  'apache',
+  'azure',
+  'amazon',
+  'airbnb'
+]
+
+function notRelevant(ghRepo) {
+  return bigCompany.some(company => ghRepo.full_name.startsWith(company))
+}
+
 function shouldDelete(proj) {
-  const bigCompany = [
-    'facebook',
-    'google',
-    'microsoft',
-    'dotnet',
-    'ibm',
-    'oracle',
-    'intel',
-    'alibaba',
-    'aws',
-    'pivotal',
-    'mozilla',
-    'uber',
-    'netflix',
-    'spring',
-    'apache',
-    'azure',
-    'amazon',
-    'airbnb'
-  ]
   return bigCompany.some(company => proj.coordinates.startsWith(company))
 }
 // console.log('google? ' + shouldDelete({ coordinates: 'google' }))
@@ -47,7 +52,7 @@ async function deleteAll() {
   }
 }
 
-deleteAll()
+//deleteAll()
 
 // delete from codexia
 async function deleteProj(id) {
@@ -59,3 +64,5 @@ async function deleteProj(id) {
     }, 500)
   })
 }
+
+module.exports = notRelevant
