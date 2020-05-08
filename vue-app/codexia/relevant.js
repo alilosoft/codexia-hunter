@@ -37,7 +37,7 @@ async function toDelete(filter = shouldDelete) {
   firebase.db().goOffline()
 
   const toDelete = submitted
-    .filter(shouldDelete)
+    .filter(filter)
     .filter(p => (p.submitter = 'codexia-hunter'))
   return toDelete
 }
@@ -46,13 +46,13 @@ async function deleteAll() {
   const all = await toDelete()
   let count = all.length
   console.log('to delete count: ' + count)
-  for (p of all) {
+  for (let p of all) {
     console.log(count-- + ' > ' + ' delete: ' + p.coordinates)
-    //await deleteProj(p.id)
+    await deleteProj(p.id)
   }
 }
 
-//deleteAll()
+deleteAll()
 
 // delete from codexia
 async function deleteProj(id) {
@@ -65,4 +65,4 @@ async function deleteProj(id) {
   })
 }
 
-module.exports = notRelevant
+module.exports = { notRelevant }
