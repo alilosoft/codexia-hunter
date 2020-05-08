@@ -27,6 +27,11 @@
           <a v-bind:href="repo.html_url" target="_blank">
             {{ repo.full_name }}</a
           >
+          <label
+            v-show="notRelevant(repo)"
+            style="color: crimson; font-weight: bold;;"
+            >irrelevant</label
+          >
           <p class="desc">{{ repo.description }}</p>
           <div id="topics" v-show="repo.topics.length > 0">
             <ul style="padding-inline-start: 0">

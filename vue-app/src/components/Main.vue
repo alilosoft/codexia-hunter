@@ -9,6 +9,7 @@
   import secrets from '../../config/secrets'
   import axios from 'axios'
   import { DateTime } from 'luxon'
+  import codexia from '../../codexia/relevant'
   export default {
     name: 'Main',
     props: {
@@ -144,6 +145,10 @@
 
       eligible(repo) {
         return !this.famous(repo) && !this.outdated(repo)
+      },
+
+      notRelevant(repo) {
+        return codexia.notRelevant(repo.full_name)
       },
 
       repoInfo(repo) {
