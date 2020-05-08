@@ -17,7 +17,9 @@ function shouldDelete(proj) {
     'netflix',
     'spring',
     'apache',
-    'azure'
+    'azure',
+    'amazon',
+    'airbnb'
   ]
   return bigCompany.some(company => proj.coordinates.startsWith(company))
 }
@@ -41,7 +43,7 @@ async function deleteAll() {
   console.log('to delete count: ' + count)
   for (p of all) {
     console.log(count-- + ' > ' + ' delete: ' + p.coordinates)
-    await deleteProj(p.id)
+    //await deleteProj(p.id)
   }
 }
 
