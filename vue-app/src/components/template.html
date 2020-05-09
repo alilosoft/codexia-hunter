@@ -26,15 +26,23 @@
         <li v-for="repo in ghSearchResults" :key="repo.id" class="repo">
           <a
             v-bind:href="repo.html_url"
-            target="_blank"
             :style="repoNameStyle(repo)"
+            target="_blank"
           >
-            {{ repo.full_name }}</a
-          >
+            {{ repo.full_name }}
+          </a>
           <label
             v-show="notRelevant(repo)"
             style="color: crimson; font-weight: bold;;"
             >irrelevant</label
+          >
+          <label></label>
+          <a
+            :href="repo.homepage"
+            v-show="repo.homepage.length > 0"
+            target="_blank"
+            style="text-decoration: none;"
+            >🌐</a
           >
           <p class="desc">{{ repo.description }}</p>
           <div id="topics" v-show="repo.topics.length > 0">
