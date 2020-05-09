@@ -31,18 +31,17 @@
           >
             {{ repo.full_name }}
           </a>
+          <a
+            :href="repo.homepage"
+            v-show="repo.homepage != null && repo.homepage.length > 0"
+            target="_blank"
+            style="text-decoration: none;margin: 5px;"
+            >🌐</a
+          >
           <label
             v-show="notRelevant(repo)"
             style="color: crimson; font-weight: bold;;"
             >irrelevant</label
-          >
-          <label></label>
-          <a
-            :href="repo.homepage"
-            v-show="repo.homepage.length > 0"
-            target="_blank"
-            style="text-decoration: none;"
-            >🌐</a
           >
           <p class="desc">{{ repo.description }}</p>
           <div id="topics" v-show="repo.topics.length > 0">

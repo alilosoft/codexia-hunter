@@ -152,8 +152,7 @@
       },
 
       repoNameStyle(repo) {
-        if (codexia.notRelevant(repo.full_name))
-          return { textDecoration: 'line-through' }
+        if (codexia.notRelevant(repo.full_name)) return { color: 'crimson' }
       },
 
       repoInfo(repo) {
