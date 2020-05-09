@@ -1,4 +1,4 @@
-<template src="./template.html"> </template>
+<template src="./main.html"> </template>
 <style src="./style/style.css"></style>
 <style src="./style/buttons.css"></style>
 <style src="./style/tags.css"></style>
@@ -19,7 +19,7 @@
       return {
         ghQuery: 'framework stars:100..10000 pushed:>2020-01-01 archived:false',
         ghSearch: new GitHubSearch(this.showError),
-        page: 24,
+        page: 32,
         totalCount: 0,
         ghSearchResults: [],
         relevantReposNames: [],
