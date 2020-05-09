@@ -19,7 +19,7 @@
       return {
         ghQuery: 'framework stars:100..10000 pushed:>2020-01-01 archived:false',
         ghSearch: new GitHubSearch(this.showError),
-        page: 20,
+        page: 24,
         totalCount: 0,
         ghSearchResults: [],
         relevantReposNames: [],
@@ -44,7 +44,7 @@
         this.relevantReposNames = Object.values(relevantRepos)
         console.debug(this.relevantReposNames)
         const submittedRepos = await firebase.getSubmittedRepos()
-        this.submittedReposNames = submittedRepos.map(p => p.coordinates)
+        this.submittedReposNames = submittedRepos.map(p => p.full_name)
         console.debug(this.submittedReposNames)
       },
 

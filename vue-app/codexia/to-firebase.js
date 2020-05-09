@@ -4,7 +4,7 @@ const codexia = require('./recent')
 function minimize(codexiaProj) {
   const mini = {}
   mini['id'] = codexiaProj.id
-  mini['coordinates'] = codexiaProj.coordinates
+  mini['full_name'] = codexiaProj.coordinates
   mini['submitter'] = codexiaProj.submitter.login
   return mini
 }
